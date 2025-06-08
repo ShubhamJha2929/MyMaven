@@ -2,20 +2,16 @@ pipeline {
     agent any
 
     tools {
-        // Install and use Maven and JDK by name (must be pre-configured in Jenkins)
-        maven 'Maven 3.8.6'       // Replace with your Maven installation name in Jenkins
-        jdk 'JDK 11'              // Replace with your JDK installation name in Jenkins
+        maven 'Maven '       // Make sure this is the exact name defined in Jenkins > Global Tool Configuration
+                      // Same here
     }
-
-    
-    
 
     stages {
 
         stage('Checkout') {
             steps {
                 echo 'Checking out source code...'
-                git branch:'master', url: 'https://github.com/ShubhamJha2929/MyMaven.git'
+                git branch: 'master', url: 'https://github.com/ShubhamJha2929/MyMaven.git'
             }
         }
 
@@ -35,18 +31,18 @@ pipeline {
 
         stage('Run Application') {
             steps {
-               sh 'java -jar target/MyMavenApp-1.0-SNAPSHOT.jar'
+                echo 'Running application...'
+                sh 'java -jar target/MyMavenApp-1.0-SNAPSHOT.jar'
             }
         }
-
     }
 
     post {
         success {
-            echo 'Pipeline completed successfully!'
+            echo '✅ Pipeline completed successfully!'
         }
         failure {
-            echo 'Pipeline failed!'
+            echo '❌ Pipeline failed!'
         }
     }
 }
